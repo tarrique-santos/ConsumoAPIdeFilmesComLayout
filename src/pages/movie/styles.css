@@ -1,0 +1,241 @@
+Reset default styles
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Highlight text selection */
+::selection {
+  color: #c22957;
+  background: #fff;
+}
+
+/* Header styles */
+header {
+  height: 10vh;
+  background-color: #c22957;
+}
+
+/* Navigation styles */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  background-color: #000000;
+}
+
+/* Body styles */
+body {
+  background-color: #000000;
+}
+
+/* Heading styles */
+h2 {
+  color: #fff;
+}
+
+/* Options styles */
+#opc {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#opc > li {
+  margin-top: 3.8vh;
+  list-style: none;
+  color: #fff;
+}
+
+/* Container styles */
+.container {
+  text-align: center;
+}
+
+/* Search form styles */
+#search {
+  width: 100vw;
+}
+
+#searchIpt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c22957;
+  width: 94vw;
+  height: 5vh;
+  padding: 10px;
+  color: #fff;
+  border-radius: 6px 0 0 6px;
+  border: 1px solid #fff;
+}
+
+/* Placeholder text styles */
+::placeholder {
+  font: inherit;
+  color: #e3e3e3;
+}
+
+/* Link button styles */
+.link_button {
+  margin-top: 5px;
+  padding: 0.7rem 3rem;
+  border: none;
+  border-radius: 15px;
+  color: #212121;
+  background-color: #ffffff;
+  font-weight: 1000;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 250ms;
+}
+
+.link_button:hover {
+  transform: scale(1.1);
+}
+
+/* Movie image styles */
+.img_movie {
+  width: 20%;
+  margin: 0 40%;
+}
+
+/* Movie description styles */
+.movie-desc {
+  text-align: justify;
+}
+
+.descricao {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 30%;
+}
+
+.descricao h4 {
+  font-size: 24px;
+}
+
+.descricao p {
+  text-indent: 30px;
+}
+
+/* Menu styles */
+.menu {
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+/* Menu icon styles */
+.menu-icon {
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 4px 0;
+}
+
+/* Menu list styles */
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+
+.menu-list li {
+  margin: 10px 0;
+}
+
+.menu-list a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Show the menu when the screen width is smaller */
+@media (max-width: 768px) {
+  .menu-list {
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #333;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .menu-list li {
+    margin: 10px 0;
+  }
+}
+
+/* Additional styles */
+#cxInfo {
+  background-color: #fff;
+}
+
+.slick-slide {
+  margin: 0 5px;
+}
+
+.slick-list {
+  margin: 0 -5px;
+}
+a{
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Estilos gerais */
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Remove setas padrão */  
+select::-ms-expand {
+  display: none; 
+}
+
+select::-webkit-dropdown-arrow {
+  display: none;
+}
+
+/* Estilo do dropdown */
+select:focus {
+  outline: none;
+  border-color: #c22957;
+  box-shadow: 0 0 0 2px #c2295740;
+}
+
+/* Opções */
+select option {
+  padding: 10px; 
+  background-color: #fff;
+}
+
+/* Opção hover */
+select option:hover {
+  background-color: #c22957;
+  color: #fff;
+}
+
+/* Opção selecionada */
+select option:checked {
+  background-color: #c22957;
+  color: #fff;
+}
