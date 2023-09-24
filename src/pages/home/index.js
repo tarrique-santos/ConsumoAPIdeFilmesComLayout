@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import { Container, Movie, MovieList, Btn } from "./style";
 import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import axios from "axios";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Home() {
   const imagePath = "https://image.tmdb.org/t/p/w500";
@@ -11,6 +13,7 @@ function Home() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [selectedGenreName, setSelectedGenreName] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -25,16 +28,16 @@ function Home() {
       apiUrl += `&with_genres=${selectedGenre}`;
     }
 
+    if (selectedCategory !== "all") {
+      apiUrl = `https://api.themoviedb.org/3/discover/${selectedCategory}?api_key=${KEY}&language=pt-BR`;
+    }
+
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
         setMovies(data.results);
       });
-  }, [KEY, searchTerm, selectedGenre]);
-
-  const getMoviesByCategory = () => {
-    return selectedGenre ? moviesByGenre[selectedGenre] : movies;
-  };
+  }, [KEY, searchTerm, selectedGenre, selectedCategory]);
 
   const genreNames = {
     28: "Ação",
@@ -43,42 +46,58 @@ function Home() {
     35: "Comédia",
     10749: "Romance",
     18: "Drama",
+    37: "Faroeste",
+    27: "Terror",
+    53: "Suspense",
+    // Adicione outros gêneros aqui, se necessário
   };
 
-  const moviesByGenre = {};
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
-  movies.forEach((movie) => {
-    movie.genre_ids.forEach((genreId) => {
-      if (!moviesByGenre[genreId]) {
-        moviesByGenre[genreId] = [];
-      }
-      moviesByGenre[genreId].push(movie);
-    });
-  });
+  const handleGenreChange = (e) => {
+    const selectedGenreId = e.target.value;
+    setSelectedGenre(selectedGenreId);
+
+    setSelectedGenreName(genreNames[selectedGenreId] || "Todos");
+  };
+
+  // Configurações do slider do react-slick
+  const sliderSettings = {
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  // Divide a lista de filmes em 3 partes
+  const numSlides = 3;
+  const chunkSize = Math.ceil(movies.length / numSlides);
+  const movieChunks = [];
+  for (let i = 0; i < movies.length; i += chunkSize) {
+    movieChunks.push(movies.slice(i, i + chunkSize));
+  }
 
   return (
     <Container>
       <header>
-        <div id="logotipo"></div>
-        <div>
-          <ul id="opc">
-           
-          <li>
-  <select
-    value={selectedGenre}
-    onChange={(e) => setSelectedGenre(e.target.value)}
-  >
-    <option value="">Todos</option> {/* Altere o valor aqui para uma string vazia */}
-    {Object.keys(genreNames).map((genreId) => (
-      <option key={genreId} value={genreId}>
-        {genreNames[genreId]}
-      </option>
-    ))}
-  </select>
-</li>
-
-          </ul>
-        </div>
+        {/* ... (seu código existente) */}
       </header>
       <nav>
         <form id="search">
@@ -89,26 +108,49 @@ function Home() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          <div>
+            <ul id="opc">
+              <li>
+                <select
+                  value={selectedGenre}
+                  onChange={handleGenreChange}
+                >
+                  <option value="">Todos</option>
+                  {Object.keys(genreNames).map((genreId) => (
+                    <option key={genreId} value={genreId}>
+                      {genreNames[genreId]}
+                    </option>
+                  ))}
+                </select>
+              </li>
+            </ul>
+          </div>
         </form>
       </nav>
       <div>
-        <h2>Filmes</h2>
-        <MovieList>
-          {getMoviesByCategory().map((movie) => (
-            <Movie key={movie.id}>
-              <img
-                src={`${imagePath}${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <span>{movie.title}</span>
-              <Link to={`/${movie.id}`}>
-                <Btn>Detalhes</Btn>
-              </Link>
-            </Movie>
-          ))}
-        </MovieList>
+        <div id="carroussel"></div>
+        <h2>
+          {selectedCategory === "series" ? "Séries" : "Filmes"} - {selectedGenreName}
+        </h2>
+
+        {/* Renderiza os sliders */}
+        {movieChunks.map((chunk, index) => (
+          <div key={index}>
+            <h3>Slider {index + 1}</h3>
+            <Slider {...sliderSettings}>
+              {chunk.map((movie) => (
+                <Movie key={movie.id}>
+                  <img src={`${imagePath}${movie.poster_path}`} alt={movie.title} />
+                  <span>{movie.title}</span>
+                  <Link to={`/${movie.id}`}>
+                    <Btn>Detalhes</Btn>
+                  </Link>
+                </Movie>
+              ))}
+            </Slider>
+          </div>
+        ))}
       </div>
-     
     </Container>
   );
 }

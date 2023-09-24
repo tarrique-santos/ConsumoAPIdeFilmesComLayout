@@ -18,6 +18,7 @@ nav {
   align-items: center;
   justify-content: center;
   padding: 20px 0;
+  flex-wrap: wrap;
   
 }
 
@@ -482,4 +483,9 @@ select option:checked {
 
 .back-button:hover {
   text-decoration: underline;
+}
+
+.slick-slide{
+  height: 100%;
+  margin-bottom: -12em;
 }
