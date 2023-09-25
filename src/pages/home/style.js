@@ -10,16 +10,16 @@ export const Container = styled.div`
 export const MovieList = styled.ul`
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(175px, 3fr));
+  grid-template-columns: repeat(auto-fit, minmax(175px, 4fr));
   gap: 3.5rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
 `;
 
 // Movie
 export const Movie = styled.li`
 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius:3px;
   transition: transform 0.3s ease;
   overflow: hidden;
 
@@ -30,7 +30,7 @@ export const Movie = styled.li`
   img {
     width: 100%;
     height: auto;
-    border-radius: 10px 10px 0 0;
+    border-radius: 4px 4px 0 0;
   }
 
   span {
@@ -46,18 +46,17 @@ export const Movie = styled.li`
 export const Btn = styled.button`
   display: block;
   margin: 0 auto;
-  margin-top: 1rem;
-  padding: 0.5rem 2rem;
+  padding: 1rem 5rem;
   border: none;
-  border-radius: 15px;
+  border-radius: 5px;
   color: #ffffff;
-  background-color: #c22957;
+  background-color: #41BF78;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #c22950;
+    background-color: #41BF78;
   }
 `;

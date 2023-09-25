@@ -5,13 +5,20 @@
 }
 
 ::selection {
-  color: #c22957;
+  color: #41BF78;
   background: #fff;
 }
 
 header {
-  height: 10vh;
-  background-color: #c22957;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header > #logo {
+  width: 25rem;
 }
 nav {
   display: flex;
@@ -55,7 +62,7 @@ h2 , span{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #c22957;
+  background-color: #41BF78;
   width: 94vw;
   height: 5vh;
   padding: 10px;
@@ -210,7 +217,7 @@ select::-webkit-dropdown-arrow {
 /* Estilo do dropdown */
 select:focus {
   outline: none;
-  border-color: #c22957;
+  border-color: #41BF78;
   box-shadow: 0 0 0 2px #c2295740;
 }
 
@@ -222,13 +229,13 @@ select option {
 
 /* Opção hover */
 select option:hover {
-  background-color: #c22957;
+  background-color: #41BF78;
   color: #fff;
 }
 
 /* Opção selecionada */
 select option:checked {
-  background-color: #c22957;
+  background-color: #41BF78;
   color: #fff;
 }
 
@@ -302,7 +309,7 @@ select option:checked {
 
 .link_button {
   height: 4em;
-  background-color: #c22957;
+  background-color: #41BF78;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -312,7 +319,7 @@ select option:checked {
 }
 
 .link_button:hover {
-  background-color: #a21941;
+  background-color: #4AD95F;
 }
 
 #btnsDetails{
@@ -372,7 +379,7 @@ select option:checked {
   border: none;
   border-radius: 15px;
   color: #ffffff;
-  background-color: #c22957;
+  background-color: #41BF78;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
@@ -380,7 +387,7 @@ select option:checked {
 }
 
 .Btn:hover {
-  background-color: #c22950;
+  background-color: #41BF78;
 }
 /* styles.css */
 
@@ -395,7 +402,7 @@ select option:checked {
 
 /* Estilize a imagem do filme */
 .movie-image img {
-  max-width: 100%;
+  max-width: 26em;
   height: auto;
   border-radius: 8px;
 }
@@ -461,10 +468,11 @@ select option:checked {
 }
 
 .link_button {
-  background-color: #c22957;
+  background-color: #41BF78;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 60px;
+  font-weight: 800;
   margin-right: 10px;
   text-decoration: none;
   border-radius: 5px;
@@ -473,7 +481,7 @@ select option:checked {
 }
 
 .link_button:hover {
-  background-color: #a71e49;
+  background-color: #41BF78;
 }
 
 .back-button {
@@ -488,4 +496,14 @@ select option:checked {
 .slick-slide{
   height: 100%;
   margin-bottom: -12em;
+}
+
+.imagem-poster {
+  max-width: 10rem;
+  height: auto;
+}
+@media screen and (max-width: 768px) {
+  .imagem-poster {
+      max-width: 80%;
+  }
 }

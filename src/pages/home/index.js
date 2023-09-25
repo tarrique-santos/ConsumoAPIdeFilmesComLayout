@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import logo from "../../img/logo/FlixHub/default_transparent_765x625.png";
 
 function Home() {
   const imagePath = "https://image.tmdb.org/t/p/w500";
@@ -14,7 +15,6 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedGenreName, setSelectedGenreName] = useState("");
-  const [favorites, setFavorites] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
@@ -66,20 +66,27 @@ function Home() {
   // Configurações do slider do react-slick
   const sliderSettings = {
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 5, // Mostra 5 slides em telas maiores
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 1068,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 4, // Mostra 3 slides em telas médias
           slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 2, // Mostra 2 slides em telas menores
+          slidesToScroll: 2,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1, // Mostra 1 slide em telas muito pequenas
           slidesToScroll: 1,
         },
       },
@@ -87,7 +94,7 @@ function Home() {
   };
 
   // Divide a lista de filmes em 3 partes
-  const numSlides = 3;
+  const numSlides = 2;
   const chunkSize = Math.ceil(movies.length / numSlides);
   const movieChunks = [];
   for (let i = 0; i < movies.length; i += chunkSize) {
@@ -97,7 +104,7 @@ function Home() {
   return (
     <Container>
       <header>
-        {/* ... (seu código existente) */}
+        <img id="logo" src={logo} alt="FlixHub Logo" />
       </header>
       <nav>
         <form id="search">
@@ -111,10 +118,7 @@ function Home() {
           <div>
             <ul id="opc">
               <li>
-                <select
-                  value={selectedGenre}
-                  onChange={handleGenreChange}
-                >
+                <select value={selectedGenre} onChange={handleGenreChange}>
                   <option value="">Todos</option>
                   {Object.keys(genreNames).map((genreId) => (
                     <option key={genreId} value={genreId}>
@@ -128,19 +132,22 @@ function Home() {
         </form>
       </nav>
       <div>
-        <div id="carroussel"></div>
         <h2>
-          {selectedCategory === "series" ? "Séries" : "Filmes"} - {selectedGenreName}
+          {selectedCategory === "series" ? "Séries" : "Filmes"} -{" "}
+          {selectedGenreName}
         </h2>
 
-        {/* Renderiza os sliders */}
         {movieChunks.map((chunk, index) => (
           <div key={index}>
             <h3>Slider {index + 1}</h3>
             <Slider {...sliderSettings}>
               {chunk.map((movie) => (
                 <Movie key={movie.id}>
-                  <img src={`${imagePath}${movie.poster_path}`} alt={movie.title} />
+                  <img
+                    src={`${imagePath}${movie.poster_path}`}
+                    alt={movie.title}
+                    id="imgPost"
+                  />
                   <span>{movie.title}</span>
                   <Link to={`/${movie.id}`}>
                     <Btn>Detalhes</Btn>
