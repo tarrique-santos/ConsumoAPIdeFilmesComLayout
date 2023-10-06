@@ -8,34 +8,30 @@ const Movie = () => {
   const imagePath = "https://image.tmdb.org/t/p/w500";
 
   const [movie, setMovie] = useState({});
+  const [trailer, setTrailer] = useState(""); // Estado para o trailer do filme
   const [isFavorite, setIsFavorite] = useState(false); // Estado para controlar o favorito
   const KEY = process.env.REACT_APP_KEY;
 
-  // Função para favoritar o filme
-  const addToFavorites = () => {
-    // Lógica para adicionar o filme aos favoritos (por exemplo, armazenar em localStorage)
-    // Aqui, vamos apenas alternar o estado de favorito para simplificar
-    setIsFavorite(true);
-  };
-
-  // Função para desfavoritar o filme
-  const removeFromFavorites = () => {
-    // Lógica para remover o filme dos favoritos (por exemplo, remover do localStorage)
-    // Aqui, vamos apenas alternar o estado de favorito para simplificar
-    setIsFavorite(false);
-  };
-
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${KEY}&language=pt-BR`
-    )
+    // Carregar detalhes do filme
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${KEY}&language=pt-BR`)
       .then((response) => response.json())
       .then((data) => {
         setMovie(data);
       });
+
+    // Buscar o vídeo do trailer
+    fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${KEY}&language=pt-BR`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Procurar o vídeo do trailer (geralmente com type === "Trailer")
+        const trailerVideo = data.results.find((video) => video.type === "Trailer");
+        if (trailerVideo) {
+          setTrailer(`https://www.youtube.com/embed/${trailerVideo.key}`);
+        }
+      });
   }, [id, KEY]);
 
-  // Função para converter minutos em horas e minutos
   const convertMinutesToHours = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const remainingMinutes = minutes % 60;
@@ -43,12 +39,8 @@ const Movie = () => {
   };
 
   return (
-    <div
-      className="movie-details-container"
-      style={{
-        backgroundImage: `url(${imagePath}${movie.backdrop_path})`, // Define a imagem de fundo
-      }}
-    >
+    <div className="movie-details-container">
+      <div className="movie-details">
       <div className="movie-details">
         <div className="movie-image">
           <img
@@ -59,9 +51,7 @@ const Movie = () => {
         </div>
         <div className="movie-info">
           <h1 className="movie-title">{movie.title}</h1>
-          <h3 className="release-date">
-            Lançamento: {movie.release_date}
-          </h3>
+          <h3 className="release-date">Lançamento: {movie.release_date}</h3>
           <div className="movie-description">
             <h4>Sinopse:</h4>
             <p className="movie-desc">{movie.overview}</p>
@@ -89,11 +79,26 @@ const Movie = () => {
                 ))}
             </ul>
           </div>
-          <div id="btnsDetails">
-            <Link to="/" className="back-button">
-              <button className="link_button">Voltar</button>
-            </Link>
-          </div>
+          
+        </div>
+      </div>
+        <div className="movie-trailer">
+          {trailer && (
+            <iframe
+              width="560"
+              height="315"
+              src={trailer}
+              title={`${movie.title} Trailer`}
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          )}
+        </div>
+        <div id="btnsDetails">
+          <Link to="/" className="back-button">
+            <button className="link_button">Voltar</button>
+          </Link>
         </div>
       </div>
     </div>

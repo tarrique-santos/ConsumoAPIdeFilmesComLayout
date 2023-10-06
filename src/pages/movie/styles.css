@@ -19,6 +19,7 @@ header {
 
 header > #logo {
   width: 25rem;
+  margin: 2rem;
 }
 nav {
   display: flex;
@@ -29,11 +30,8 @@ nav {
   
 }
 
-h4 , p , li , .rating-number{
-  color: #000;
-}
-h2 , span{
-  color: #fff;
+h4 , p , li ,h2 , span, .rating-number{
+  color: #ffffff;
 }
 
 #opc {
@@ -67,8 +65,7 @@ h2 , span{
   height: 5vh;
   padding: 10px;
   color: #fff;
-  border-radius: 6px 0 0 6px;
-  border: 1px solid #fff;
+  border-radius: 6px;
 }
 
 /* Placeholder text styles */
@@ -229,15 +226,11 @@ select option {
 
 /* Opção hover */
 select option:hover {
-  background-color: #41BF78;
+  background-color: #f100f1;
   color: #fff;
 }
 
 /* Opção selecionada */
-select option:checked {
-  background-color: #41BF78;
-  color: #fff;
-}
 
 /* styles.css */
 
@@ -245,14 +238,14 @@ select option:checked {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f2f2f2;
+  background-color: #000000;
   padding: 20px;
   min-height: 100vh;
 }
 
 .movie-details {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   overflow: hidden;
   display: flex;
@@ -273,6 +266,7 @@ select option:checked {
 }
 .movie-info {
   padding: 20px;
+  background-color: #000;
 }
 
 .movie-title {
@@ -506,4 +500,23 @@ select option:checked {
   .imagem-poster {
       max-width: 80%;
   }
+}
+
+.movie-card{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ margin-bottom: 3rem;
+}
+
+#titulo{
+  text-align: center;
+}
+
+#cxBanner{
+  align-items: center;
+  width: 50rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

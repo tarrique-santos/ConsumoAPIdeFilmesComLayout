@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import logo from "../../img/logo/FlixHub/default_transparent_765x625.png";
+import logo from "../../img/Hulu_Logo.svg.png";
 
 function Home() {
   const imagePath = "https://image.tmdb.org/t/p/w500";
@@ -92,6 +92,35 @@ function Home() {
       },
     ],
   };
+  // Modifique as configurações do slider para mostrar apenas um slide por vez
+  const sliderSettings2 = {
+    infinite: true,
+    slidesToShow: 1, // Mostra 1 slide de cada vez
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1068,
+        settings: {
+          slidesToShow: 1, // Mostra 1 slide de cada vez em telas médias
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          slidesToShow: 1, // Mostra 1 slide de cada vez em telas menores
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1, // Mostra 1 slide de cada vez em telas muito pequenas
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   // Divide a lista de filmes em 3 partes
   const numSlides = 2;
@@ -100,6 +129,34 @@ function Home() {
   for (let i = 0; i < movies.length; i += chunkSize) {
     movieChunks.push(movies.slice(i, i + chunkSize));
   }
+
+  // const filmes = [
+  //   {
+  //     id: 1,
+  //     title: 'Avatar II',
+  //     image: 'https://pipocasclub.com.br/wp-content/uploads/2022/12/avatar-2-image002-e1671144701779.png',
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Deadpool II',
+  //     image: 'https://cinemaemserie.com.br/wp-content/uploads/2018/05/deadpool-2-capa-rezenha.jpg',
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Elementos',
+  //     image: 'https://ovicio.com.br/wp-content/uploads/2023/03/20230328-scale-1.jpg',
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Homem-aranha III: Sem Volta Para Casa',
+  //     image: 'https://i.ytimg.com/vi/t5LHl6XN6EY/maxresdefault.jpg',
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'Besouro Azul',
+  //     image: 'https://ultimatodobacon.com.br/static/31c3c4c30ae7d95637fdc7f7b053844f/ebf99/besouro-azul-capa.png',
+  //   },
+  // ];
 
   return (
     <Container>
@@ -137,6 +194,27 @@ function Home() {
           {selectedGenreName}
         </h2>
 
+        <Slider {...sliderSettings2}>
+          {movies.map((movie) => (
+            <div key={movie.id} className="movie-card">
+              <div id="cxBanner">
+                <Link to={`/${movie.id}`}>
+                  <img
+                    src={`${imagePath}${movie.backdrop_path}`}
+                    alt={movie.title}
+                  />
+                </Link>
+              </div>
+              <h2 id="titulo">{movie.title}</h2>
+            </div>
+          ))}
+        </Slider>
+
+        <h2>
+          {selectedCategory === "series" ? "Séries" : "Filmes"} -{" "}
+          {selectedGenreName}
+        </h2>
+
         {movieChunks.map((chunk, index) => (
           <div key={index}>
             <h3>Slider {index + 1}</h3>
@@ -150,7 +228,7 @@ function Home() {
                   />
                   <span>{movie.title}</span>
                   <Link to={`/${movie.id}`}>
-                    <Btn>Detalhes</Btn>
+                    <Btn>Ver mais</Btn>
                   </Link>
                 </Movie>
               ))}
